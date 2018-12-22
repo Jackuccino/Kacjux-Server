@@ -1,3 +1,3 @@
-# Kacjux Microservices
+# Kacjux Server
 
-This is the microservices for the ordering application.
+This is the server for the ordering application.
