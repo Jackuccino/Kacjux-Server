@@ -4,13 +4,13 @@ const router = express.Router();
 
 // Config for postgre
 const config = {
-    user: process.env.PGUSER,
-    database: process.env.PGDATABASE,
-    password: process.env.PGPASSWORD,
-    host: process.env.PGHOST,
-    port: process.env.PORT || 3000,
-    max: 10,
-    idleTimeoutMillis: 30000
+  user: process.env.PGUSER,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  host: process.env.PGHOST,
+  port: process.env.PORT || 3000,
+  max: 10,
+  idleTimeoutMillis: 30000
 };
 
 // Create the new pool for postgre
@@ -26,25 +26,27 @@ router.get("/", (req, res, next) => {
 // Handle a POST request which will create a new order
 router.post("/", (req, res, next) => {
   const client = new Client();
-  client.connect().then(() => {
-    console.log("database connected");
-    // Do query stuff
-    const sql =
-      "INSERT INTO orders (TotalPrice, OrderItems, Closed, Note) VALUES ($1, $2, $3, $4)";
-    const params = [
-      req.body.totalPrice,
-      req.body.orderItems.join(","),
-      req.body.closed,
-      req.body.note
-    ];
-    return client.query(sql, params);
-  })
-  .then((result) => {
+  client
+    .connect()
+    .then(() => {
+      console.log("database connected");
+      // Do query stuff
+      const sql =
+        "INSERT INTO orders (TotalPrice, OrderItems, Closed, Note) VALUES ($1, $2, $3, $4)";
+      const params = [
+        req.body.totalPrice,
+        req.body.orderItems.join(","),
+        req.body.closed,
+        req.body.note
+      ];
+      return client.query(sql, params);
+    })
+    .then(result => {
       console.log("Result", result);
-  })
-  .catch((err) => {
-    console.log("Error", err);
-  });
+    })
+    .catch(err => {
+      console.log("Error", err);
+    });
 
   res.status(201).json({
     message: "Order was created"

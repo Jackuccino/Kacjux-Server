@@ -10,12 +10,12 @@ router.get("/", (req, res, next) => {
 
 // Handle a POST request which will create a new item
 router.post("/", (req, res, next) => {
-    const item = {
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        type: req.body.type
-    }
+  const item = {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    type: req.body.type
+  };
 
   res.status(201).json({
     message: "Item was created",
