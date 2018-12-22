@@ -1,0 +1,34 @@
+{
+  "name": "kacjux-microservices",
+  "version": "1.0.0",
+  "description": "A Node.js RESTful API for Kacjux",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Jackuccino/kacjux-microservices.git"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api"
+  ],
+  "author": "Jack Xu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Jackuccino/kacjux-microservices/issues"
+  },
+  "homepage": "https://gitlab.com/Jackuccino/kacjux-microservices#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "pg": "^7.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
