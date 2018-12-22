@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const OrdersController = require("../controllers/orders");
+const OrdersController = require("../controllers/orderController");
 
 // Handle a GET request which will return all the existing orders
 router.get("/", OrdersController.orders_get_all);

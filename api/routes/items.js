@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const ItemController = require("../controllers/items");
+const ItemController = require("../controllers/itemController");
 
 // Handle a GET request which will return all the existing items
 router.get("/", ItemController.items_get_all);
