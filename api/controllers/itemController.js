@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 
 // Config for postgre
 const config = {
@@ -18,7 +18,7 @@ exports.items_get_all = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = "SELECT * FROM Items;";
+      const sql = 'SELECT * FROM "Items";';
       const params = [];
       return client
         .query(sql, params)
@@ -44,7 +44,7 @@ exports.items_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        "INSERT INTO Items (Name, Description, Price, Type) VALUES ($1, $2, $3, $4);";
+        'INSERT INTO "Items" ("Name", "Description", "Price", "Type") VALUES ($1, $2, $3, $4);';
       const params = [
         req.body.Name,
         req.body.Description,
@@ -75,7 +75,7 @@ exports.items_get = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = "SELECT * FROM Items WHERE ItemId = $1;";
+      const sql = 'SELECT * FROM "Items" WHERE "ItemId" = $1;';
       const params = [id];
       return client
         .query(sql, params)
@@ -83,7 +83,7 @@ exports.items_get = (req, res, next) => {
           client.release();
           console.log(result);
           if (!result) {
-            return res.status(404).json({ message: "Item not found" });
+            return res.status(404).json({ message: 'Item not found' });
           }
           res.status(200).json(result);
         })
@@ -105,7 +105,7 @@ exports.items_update = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        "UPDATE Items SET Name = $1, Description = $2, Price = $3, Type = $4 WHERE ItemId = $5;";
+        'UPDATE "Items" SET "Name" = $1, "Description" = $2, "Price" = $3, "Type" = $4 WHERE "ItemId" = $5;';
       const params = [
         req.body.Name,
         req.body.Description,
@@ -137,7 +137,7 @@ exports.items_delete = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = "DELETE FROM Items WHERE ItemId = $1;";
+      const sql = 'DELETE FROM "Items" WHERE "ItemId" = $1;';
       const params = [id];
       return client
         .query(sql, params)

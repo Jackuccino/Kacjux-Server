@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 
 // Config for postgre
 const config = {
@@ -18,7 +18,7 @@ exports.orders_get_all = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = "SELECT * FROM orders;";
+      const sql = 'SELECT * FROM "Orders";';
       const params = [];
       return client
         .query(sql, params)
@@ -44,11 +44,10 @@ exports.orders_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        "INSERT INTO orders (TotalPrice, OrderItems, Closed, Note) VALUES ($1, $2, $3, $4);";
+        'INSERT INTO "Orders" ("TotalPrice", "OrderItem", "Note") VALUES ($1, $2, $3);';
       const params = [
         req.body.TotalPrice,
-        req.body.OrderItems.join(","),
-        req.body.Closed,
+        req.body.OrderItem,
         req.body.Note
       ];
       return client
@@ -75,7 +74,7 @@ exports.orders_get = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = "SELECT * FROM orders WHERE OrderId = $1;";
+      const sql = 'SELECT * FROM "Orders" WHERE "OrderId" = $1;';
       const params = [id];
       return client
         .query(sql, params)
@@ -85,7 +84,7 @@ exports.orders_get = (req, res, next) => {
           if (result) {
             res.status(200).json(result);
           } else {
-            res.status(404).json({ message: "Order not found" });
+            res.status(404).json({ message: 'Order not found' });
           }
         })
         .catch(err => {
@@ -106,10 +105,10 @@ exports.orders_update = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        "UPDATE orders SET TotalPrice = $1, OrderItems = $2, Closed = $3, Note = $4 WHERE OrderId = $5;";
+        'UPDATE "Orders" SET "TotalPrice" = $1, "OrderItems" = $2, "Closed" = $3, "Note" = $4 WHERE "OrderId" = $5;';
       const params = [
         req.body.TotalPrice,
-        req.body.OrderItems.join(","),
+        req.body.OrderItems.join(','),
         req.body.Closed,
         req.body.Note,
         id
@@ -138,7 +137,7 @@ exports.orders_delete = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = "DELETE FROM orders WHERE OrderId = $1;";
+      const sql = 'DELETE FROM "Orders" WHERE "OrderId" = $1;';
       const params = [id];
       return client
         .query(sql, params)
