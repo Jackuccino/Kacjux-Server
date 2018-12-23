@@ -29,7 +29,7 @@ app.use('/api/items', itemRoutes);
 
 // Error handling for invalid requests
 app.use((req, res, next) => {
-  const err = new Error('Not found');
+  const err = new Error('Request Not found');
   err.status = 404;
   next(err);
 });

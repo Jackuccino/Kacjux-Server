@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 // Config for postgre
 const config = {
@@ -6,7 +6,7 @@ const config = {
   database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
   host: process.env.PGHOST,
-  port: process.env.PORT || 3000,
+  port: process.env.PGPORT,
   max: 10,
   idleTimeoutMillis: 30000
 };
@@ -24,8 +24,26 @@ exports.orders_get_all = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(200).json(result);
+          const response = {
+            count: result.rowCount,
+            orders: result.rows.map(order => {
+              return {
+                OrderId: order.OrderId,
+                TotalPrice: order.TotalPrice,
+                OrderItem: order.OrderItem,
+                Closed: order.Closed,
+                Note: order.Note,
+                Date: order.Date,
+                request: {
+                  type: "GET",
+                  url: `http://localhost:${process.env.PORT}/api/orders/${
+                    order.OrderId
+                  }`
+                }
+              };
+            })
+          };
+          res.status(200).json(response);
         })
         .catch(err => {
           client.release();
@@ -45,17 +63,19 @@ exports.orders_create = (req, res, next) => {
     .then(client => {
       const sql =
         'INSERT INTO "Orders" ("TotalPrice", "OrderItem", "Note") VALUES ($1, $2, $3);';
-      const params = [
-        req.body.TotalPrice,
-        req.body.OrderItem,
-        req.body.Note
-      ];
+      const params = [req.body.TotalPrice, req.body.OrderItem, req.body.Note];
       return client
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(201).json(result);
+          res.status(201).json({
+            message: "Created order successfully",
+            request: {
+              type: "GET",
+              description: "Get all orders",
+              url: `http://localhost:${process.env.PORT}/api/orders/`
+            }
+          });
         })
         .catch(err => {
           client.release();
@@ -80,12 +100,17 @@ exports.orders_get = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          if (result) {
-            res.status(200).json(result);
-          } else {
-            res.status(404).json({ message: 'Order not found' });
+          if (!result.rowCount) {
+            return res.status(404).json({ message: "Order not found" });
           }
+          res.status(200).json({
+            order: result.rows[0],
+            request: {
+              type: "GET",
+              description: "Get all orders",
+              url: `http://localhost:${process.env.PORT}/api/orders/`
+            }
+          });
         })
         .catch(err => {
           client.release();
@@ -105,10 +130,10 @@ exports.orders_update = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'UPDATE "Orders" SET "TotalPrice" = $1, "OrderItems" = $2, "Closed" = $3, "Note" = $4 WHERE "OrderId" = $5;';
+        'UPDATE "Orders" SET "TotalPrice" = $1, "OrderItem" = $2, "Closed" = $3, "Note" = $4 WHERE "OrderId" = $5;';
       const params = [
         req.body.TotalPrice,
-        req.body.OrderItems.join(','),
+        req.body.OrderItem,
         req.body.Closed,
         req.body.Note,
         id
@@ -117,8 +142,13 @@ exports.orders_update = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(200).json(result);
+          res.status(200).json({
+            message: "Order updated",
+            request: {
+              type: "GET",
+              url: `http://localhost:${process.env.PORT}/api/orders/${id}`
+            }
+          });
         })
         .catch(err => {
           client.release();
@@ -133,7 +163,7 @@ exports.orders_update = (req, res, next) => {
 };
 
 exports.orders_delete = (req, res, next) => {
-  const id = res.params.orderId;
+  const id = req.params.orderId;
   pool
     .connect()
     .then(client => {
@@ -143,8 +173,18 @@ exports.orders_delete = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(200).json(result);
+          res.status(200).json({
+            message: "Order deleted",
+            request: {
+              type: "POST",
+              url: `http://localhost:${process.env.PORT}/api/orders/`,
+              body: {
+                TotalPrice: "TotalPrice",
+                OrderItem: "OrderItem",
+                Note: "Note"
+              }
+            }
+          });
         })
         .catch(err => {
           client.release();

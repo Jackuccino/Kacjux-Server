@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 // Config for postgre
 const config = {
@@ -6,7 +6,7 @@ const config = {
   database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
   host: process.env.PGHOST,
-  port: process.env.PORT || 3000,
+  port: process.env.PGPORT,
   max: 10,
   idleTimeoutMillis: 30000
 };
@@ -24,8 +24,25 @@ exports.items_get_all = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(200).json(result);
+          const response = {
+            count: result.rowCount,
+            items: result.rows.map(item => {
+              return {
+                ItemId: item.ItemId,
+                Name: item.Name,
+                Description: item.Description,
+                Price: item.Price,
+                Type: item.Type,
+                request: {
+                  type: "GET",
+                  url: `http://localhost:${process.env.PORT}/api/items/${
+                    item.ItemId
+                  }`
+                }
+              };
+            })
+          };
+          res.status(200).json(response);
         })
         .catch(err => {
           client.release();
@@ -55,8 +72,18 @@ exports.items_create = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(201).json(result);
+          if (result.rowCount) {
+            res.status(201).json({
+              message: "Created item successfully",
+              request: {
+                type: "GET",
+                description: "Get all items",
+                url: `http://localhost:${process.env.PORT}/api/items/`
+              }
+            });
+          } else {
+            res.status(500).json({ error: "Creating item failed" });
+          }
         })
         .catch(err => {
           client.release();
@@ -81,11 +108,23 @@ exports.items_get = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          if (!result) {
-            return res.status(404).json({ message: 'Item not found' });
+          if (!result.rowCount) {
+            return res.status(404).json({ message: "Item not found" });
           }
-          res.status(200).json(result);
+          res.status(200).json({
+            item: {
+              ItemId: result.rows[0].ItemId,
+              Name: result.rows[0].Name,
+              Description: result.rows[0].Description,
+              Price: result.rows[0].Price,
+              Type: result.rows[0].Type
+            },
+            request: {
+              type: "GET",
+              description: "Get all items",
+              url: `http://localhost:${process.env.PORT}/api/items/`
+            }
+          });
         })
         .catch(err => {
           client.release();
@@ -117,8 +156,13 @@ exports.items_update = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
-          res.status(200).json(result);
+          res.status(200).json({
+            message: "Item updated",
+            request: {
+              type: "GET",
+              url: `http://localhost:${process.env.PORT}/api/items/${id}`
+            }
+          });
         })
         .catch(err => {
           client.release();
@@ -133,7 +177,7 @@ exports.items_update = (req, res, next) => {
 };
 
 exports.items_delete = (req, res, next) => {
-  const id = res.params.itemId;
+  const id = req.params.itemId;
   pool
     .connect()
     .then(client => {
@@ -144,7 +188,19 @@ exports.items_delete = (req, res, next) => {
         .then(result => {
           client.release();
           console.log(result);
-          res.status(200).json(result);
+          res.status(200).json({
+            message: "Item deleted",
+            request: {
+              type: "POST",
+              url: `http://localhost:${process.env.PORT}/api/items/`,
+              body: {
+                Name: "Name",
+                Description: "Description",
+                Price: "Price",
+                Type: "Type"
+              }
+            }
+          });
         })
         .catch(err => {
           client.release();

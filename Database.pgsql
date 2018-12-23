@@ -7,7 +7,7 @@ CREATE TABLE public."Items"
   "Description" VARCHAR(1000),
   "Price" VARCHAR(20) NOT NULL,
   "Type" VARCHAR(50) NOT NULL,
-  "Date" date NOT NULL DEFAULT CURRENT_DATE
+  "Date" DATE NOT NULL DEFAULT CURRENT_DATE
 )
 WITH (
   OIDS=FALSE
@@ -21,10 +21,10 @@ CREATE TABLE public."Orders"
 (
   "OrderId" SERIAL NOT NULL PRIMARY KEY,
   "TotalPrice" VARCHAR(20) NOT NULL,
-  "OrderItem" integer NOT NULL REFERENCES "Items"("ItemId"),
-  "Closed" boolean NOT NULL DEFAULT false,
+  "OrderItem" INTEGER NOT NULL REFERENCES "Items"("ItemId"),
+  "Closed" BOOLEAN NOT NULL DEFAULT false,
   "Note" VARCHAR(1000),
-  "Date" date NOT NULL DEFAULT CURRENT_DATE
+  "Date" DATE NOT NULL DEFAULT CURRENT_DATE
 )
 WITH (
   OIDS=FALSE
