@@ -62,13 +62,20 @@ exports.orders_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'INSERT INTO "Orders" ("TotalPrice", "OrderItem", "Note") VALUES ($1, $2, $3);';
-      const params = [req.body.TotalPrice, req.body.OrderItem, req.body.Note];
+        'INSERT INTO "Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") VALUES ($1, $2, $3, $4, $5);';
+      const params = [
+        req.body.OrderNo,
+        req.body.TotalPrice,
+        req.body.OrderItem,
+        req.body.Quantity,
+        req.body.Note
+      ];
       return client
         .query(sql, params)
         .then(result => {
           client.release();
           res.status(201).json({
+            result: "ok",
             message: "Created order successfully",
             request: {
               type: "GET",
@@ -101,7 +108,10 @@ exports.orders_get = (req, res, next) => {
         .then(result => {
           client.release();
           if (!result.rowCount) {
-            return res.status(404).json({ message: "Order not found" });
+            return res.status(404).json({
+              result: "Failed",
+              message: "Order not found"
+            });
           }
           res.status(200).json({
             order: result.rows[0],
@@ -143,6 +153,7 @@ exports.orders_update = (req, res, next) => {
         .then(result => {
           client.release();
           res.status(200).json({
+            result: "ok",
             message: "Order updated",
             request: {
               type: "GET",
@@ -179,8 +190,10 @@ exports.orders_delete = (req, res, next) => {
               type: "POST",
               url: `http://localhost:${process.env.PORT}/api/orders/`,
               body: {
+                OrderNo: "OrderNo",
                 TotalPrice: "TotalPrice",
                 OrderItem: "OrderItem",
+                Quantity: "Quantity",
                 Note: "Note"
               }
             }
