@@ -20,6 +20,7 @@ ALTER TABLE public."Items"
 CREATE TABLE public."Orders"
 (
   "OrderId" SERIAL NOT NULL PRIMARY KEY,
+  "OrderNo" INTEGER NOT NULL,
   "TotalPrice" VARCHAR(20) NOT NULL,
   "OrderItem" INTEGER NOT NULL REFERENCES "Items"("ItemId"),
   "Quantity" INTEGER NOT NULL DEFAULT 1,
@@ -42,7 +43,7 @@ DELETE FROM "Items" WHERE "ItemId" = 1;
 
 ------ REST Query for Orders ------
 SELECT * FROM "Orders";
-INSERT INTO "Orders" ("TotalPrice", "OrderItem", "Quantity", "Note") VALUES ('$10.00', 2, 2, NULL);
+INSERT INTO "Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") VALUES (36, '$10.00', 2, 2, NULL);
 SELECT * FROM "Orders" WHERE "OrderId" = 2;
 UPDATE "Orders" SET "Closed" = TRUE, "Note" = '911 Spicy' WHERE "OrderId" = 2;
 DELETE FROM "Orders" WHERE "OrderId" = 5;
