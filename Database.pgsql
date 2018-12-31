@@ -4,6 +4,7 @@ CREATE TABLE public."Items"
 (
   "ItemId" SERIAL NOT NULL PRIMARY KEY,
   "Name" VARCHAR(150) NOT NULL,
+  "Image" VARCHAR(50),
   "Description" VARCHAR(1000),
   "Price" MONEY NOT NULL,
   "Type" VARCHAR(50) NOT NULL,
@@ -36,7 +37,7 @@ ALTER TABLE public."Orders"
 
 ------ REST Query for Items ------
 SELECT * FROM "Items";
-INSERT INTO "Items" ("Name", "Description", "Price", "Type") VALUES ('Mar Far Chichen', 'Fried Chichen', 10.00, 'Selected Delicious Cuisine');
+INSERT INTO "Items" ("Name", "Image", "Description", "Price", "Type") VALUES ('Mar Far Chichen', 'mfch.png', 'Fried Chichen', 10.00, 'Selected Delicious Cuisine');
 SELECT * FROM "Items" WHERE "ItemId" = 1;
 UPDATE "Items" SET "Price" = '$11.00' WHERE "ItemId" = 1;
 DELETE FROM "Items" WHERE "ItemId" = 1;
@@ -47,3 +48,20 @@ INSERT INTO "Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") 
 SELECT * FROM "Orders" WHERE "OrderId" = 2;
 UPDATE "Orders" SET "Closed" = TRUE, "Note" = '911 Spicy' WHERE "OrderId" = 2;
 DELETE FROM "Orders" WHERE "OrderId" = 5;
+
+------ Postman Body ------
+-- insert item --
+{
+	"Name": "Barbeque Pork",
+	"Description": "Barbeque Pork",
+	"Price": 8.50,
+	"Type": "Appetizers"
+}
+-- insert order --
+{
+  "OrderNo": "1",
+  "TotalPrice": "",
+  "OrderItem": "",
+  "Quantity": "",
+  "Note": ""
+}

@@ -31,6 +31,7 @@ exports.items_get_all = (req, res, next) => {
               return {
                 ItemId: item.ItemId,
                 Name: item.Name,
+                Image: item.Image,
                 Description: item.Description,
                 Price: item.Price,
                 Type: item.Type,
@@ -62,9 +63,10 @@ exports.items_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'INSERT INTO "Items" ("Name", "Description", "Price", "Type") VALUES ($1, $2, $3, $4);';
+        'INSERT INTO "Items" ("Name", "Image", "Description", "Price", "Type") VALUES ($1, $2, $3, $4, $5);';
       const params = [
         req.body.Name,
+        req.body.Image,
         req.body.Description,
         req.body.Price,
         req.body.Type
@@ -118,6 +120,7 @@ exports.items_get = (req, res, next) => {
             item: {
               ItemId: result.rows[0].ItemId,
               Name: result.rows[0].Name,
+              Image: result.rows[0].Image,
               Description: result.rows[0].Description,
               Price: result.rows[0].Price,
               Type: result.rows[0].Type
@@ -199,6 +202,7 @@ exports.items_delete = (req, res, next) => {
               url: `http://localhost:${process.env.PORT}/api/items/`,
               body: {
                 Name: "Name",
+                Image: "Image",
                 Description: "Description",
                 Price: "Price",
                 Type: "Type"

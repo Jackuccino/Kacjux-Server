@@ -31,8 +31,10 @@ exports.orders_get_all = (req, res, next) => {
                 result: "ok",
                 order: {
                   OrderId: order.OrderId,
+                  OrderNo: order.OrderNo,
                   TotalPrice: order.TotalPrice,
                   OrderItem: order.OrderItem,
+                  Quantity: order.Quantity,
                   Closed: order.Closed,
                   Note: order.Note,
                   Date: order.Date
@@ -119,9 +121,8 @@ exports.orders_get = (req, res, next) => {
             result: "ok",
             order: result.rows[0],
             request: {
-              type: "GET",
-              description: "Get all orders",
-              url: `http://localhost:${process.env.PORT}/api/orders/`
+              type: "DELETE",
+              url: `http://localhost:${process.env.PORT}/api/orders/${id}`
             }
           });
         })
