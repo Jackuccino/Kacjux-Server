@@ -28,12 +28,15 @@ exports.orders_get_all = (req, res, next) => {
             count: result.rowCount,
             orders: result.rows.map(order => {
               return {
-                OrderId: order.OrderId,
-                TotalPrice: order.TotalPrice,
-                OrderItem: order.OrderItem,
-                Closed: order.Closed,
-                Note: order.Note,
-                Date: order.Date,
+                result: "ok",
+                order: {
+                  OrderId: order.OrderId,
+                  TotalPrice: order.TotalPrice,
+                  OrderItem: order.OrderItem,
+                  Closed: order.Closed,
+                  Note: order.Note,
+                  Date: order.Date
+                },
                 request: {
                   type: "GET",
                   url: `http://localhost:${process.env.PORT}/api/orders/${
@@ -109,11 +112,11 @@ exports.orders_get = (req, res, next) => {
           client.release();
           if (!result.rowCount) {
             return res.status(404).json({
-              result: "Failed",
               message: "Order not found"
             });
           }
           res.status(200).json({
+            result: "ok",
             order: result.rows[0],
             request: {
               type: "GET",
@@ -185,6 +188,7 @@ exports.orders_delete = (req, res, next) => {
         .then(result => {
           client.release();
           res.status(200).json({
+            result: "ok",
             message: "Order deleted",
             request: {
               type: "POST",

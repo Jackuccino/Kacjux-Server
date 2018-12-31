@@ -25,6 +25,7 @@ exports.items_get_all = (req, res, next) => {
         .then(result => {
           client.release();
           const response = {
+            result: "ok",
             count: result.rowCount,
             items: result.rows.map(item => {
               return {
@@ -74,6 +75,7 @@ exports.items_create = (req, res, next) => {
           client.release();
           if (result.rowCount) {
             res.status(201).json({
+              result: "ok",
               message: "Created item successfully",
               request: {
                 type: "GET",
@@ -112,6 +114,7 @@ exports.items_get = (req, res, next) => {
             return res.status(404).json({ message: "Item not found" });
           }
           res.status(200).json({
+            result: "ok",
             item: {
               ItemId: result.rows[0].ItemId,
               Name: result.rows[0].Name,
@@ -120,9 +123,8 @@ exports.items_get = (req, res, next) => {
               Type: result.rows[0].Type
             },
             request: {
-              type: "GET",
-              description: "Get all items",
-              url: `http://localhost:${process.env.PORT}/api/items/`
+              type: "DELETE",
+              url: `http://localhost:${process.env.PORT}/api/items/${id}`
             }
           });
         })
@@ -157,6 +159,7 @@ exports.items_update = (req, res, next) => {
         .then(result => {
           client.release();
           res.status(200).json({
+            result: "ok",
             message: "Item updated",
             request: {
               type: "GET",
@@ -189,6 +192,7 @@ exports.items_delete = (req, res, next) => {
           client.release();
           console.log(result);
           res.status(200).json({
+            result: "ok",
             message: "Item deleted",
             request: {
               type: "POST",
