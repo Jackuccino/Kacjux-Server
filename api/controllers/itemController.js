@@ -193,7 +193,6 @@ exports.items_delete = (req, res, next) => {
         .query(sql, params)
         .then(result => {
           client.release();
-          console.log(result);
           res.status(200).json({
             result: "ok",
             message: "Item deleted",
