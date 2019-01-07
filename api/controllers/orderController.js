@@ -41,7 +41,7 @@ exports.orders_get_all = (req, res, next) => {
                 },
                 request: {
                   type: "GET",
-                  url: `http://localhost:${process.env.PORT}/api/orders/${
+                  url: `http://${process.env.PGHOST}:8080/api/orders/${
                     order.OrderId
                   }`
                 }
@@ -85,7 +85,7 @@ exports.orders_create = (req, res, next) => {
             request: {
               type: "GET",
               description: "Get all orders",
-              url: `http://localhost:${process.env.PORT}/api/orders/`
+              url: `http://${process.env.PGHOST}:8080/api/orders/`
             }
           });
         })
@@ -122,7 +122,7 @@ exports.orders_get = (req, res, next) => {
             order: result.rows[0],
             request: {
               type: "DELETE",
-              url: `http://localhost:${process.env.PORT}/api/orders/${id}`
+              url: `http://${process.env.PGHOST}:8080/api/orders/${id}`
             }
           });
         })
@@ -161,7 +161,7 @@ exports.orders_update = (req, res, next) => {
             message: "Order updated",
             request: {
               type: "GET",
-              url: `http://localhost:${process.env.PORT}/api/orders/${id}`
+              url: `http://${process.env.PGHOST}:8080/api/orders/${id}`
             }
           });
         })
@@ -193,7 +193,7 @@ exports.orders_delete = (req, res, next) => {
             message: "Order deleted",
             request: {
               type: "POST",
-              url: `http://localhost:${process.env.PORT}/api/orders/`,
+              url: `http://${process.env.PGHOST}:8080/api/orders/`,
               body: {
                 OrderNo: "OrderNo",
                 TotalPrice: "TotalPrice",

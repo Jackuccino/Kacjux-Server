@@ -37,7 +37,7 @@ exports.items_get_all = (req, res, next) => {
                 Type: item.Type,
                 request: {
                   type: "GET",
-                  url: `http://localhost:${process.env.PORT}/api/items/${
+                  url: `http://${process.env.PGHOST}:8080/api/items/${
                     item.ItemId
                   }`
                 }
@@ -82,7 +82,7 @@ exports.items_create = (req, res, next) => {
               request: {
                 type: "GET",
                 description: "Get all items",
-                url: `http://localhost:${process.env.PORT}/api/items/`
+                url: `http://${process.env.PGHOST}:8080/api/items/`
               }
             });
           } else {
@@ -127,7 +127,7 @@ exports.items_get = (req, res, next) => {
             },
             request: {
               type: "DELETE",
-              url: `http://localhost:${process.env.PORT}/api/items/${id}`
+              url: `http://${process.env.PGHOST}:8080/api/items/${id}`
             }
           });
         })
@@ -166,7 +166,7 @@ exports.items_update = (req, res, next) => {
             message: "Item updated",
             request: {
               type: "GET",
-              url: `http://localhost:${process.env.PORT}/api/items/${id}`
+              url: `http://${process.env.PGHOST}:8080/api/items/${id}`
             }
           });
         })
@@ -198,7 +198,7 @@ exports.items_delete = (req, res, next) => {
             message: "Item deleted",
             request: {
               type: "POST",
-              url: `http://localhost:${process.env.PORT}/api/items/`,
+              url: `http://${process.env.PGHOST}:8080/api/items/`,
               body: {
                 Name: "Name",
                 Image: "Image",
