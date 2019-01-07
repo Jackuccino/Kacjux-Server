@@ -53,38 +53,38 @@ DELETE FROM "Kacjux"."Orders" WHERE "OrderId" = 5;
 -- insert item --
 {
   "Name": "Pot Stickers",
-  "Image": require("./app/assets/images/potsticker.jpg"),
+  "Image": "require('./app/assets/images/potsticker.jpg')",
   "Description": "Pot Stickers",
-  "price": 9.75,
-    "Type": "   Appetizers"
+  "Price": 9.75,
+  "Type": "Appetizers"
 }
 {
   "Name": "Mar Far Chichen",
-  "Image": require("./app/assets/images/mfch.png"),
+  "Image": "require('./app/assets/images/mfch.png')",
   "Description": "Mar Far Chichen",
-  "price": 10.25,
-    "Type": "Selected Delicious Cuisine"
+  "Price": 10.25,
+  "Type": "Selected Delicious Cuisine"
 }
 {
   "Name": "Lemon Chicken",
-  "Image": require("./app/assets/images/lemonch.jpg"),
+  "Image": "require('./app/assets/images/lemonch.jpg')",
   "Description": "Lemon Chicken",
-  "price": 11.75,
-    "Type": "Selected Delicious Cuisine"
+  "Price": 11.75,
+  "Type": "Selected Delicious Cuisine"
 }
 {
   "Name": "Sesame Chicken",
-  "Image": require("./app/assets/images/sesamech.jpg"),
+  "Image": "require('./app/assets/images/sesamech.jpg')",
   "Description": "Sesame Chicken",
-  "price": 11.50,
-    "Type": "Selected Delicious Cuisine"
+  "Price": 11.50,
+  "Type": "Selected Delicious Cuisine"
 }
 {
-    "Name": "Barbeque Pork",
-  "Image": require("./app/assets/images/bbqpork.jpg"),
-    "Description": "Barbeque Pork",
-    "Price": 8.50,
-    "Type": "Appetizers"
+  "Name": "Barbeque Pork",
+  "Image": "require('./app/assets/images/bbqpork.jpg')",
+  "Description": "Barbeque Pork",
+  "Price": 8.50,
+  "Type": "Appetizers"
 }
 -- insert order --
 {
