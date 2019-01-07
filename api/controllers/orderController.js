@@ -18,7 +18,7 @@ exports.orders_get_all = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'SELECT * FROM "Orders";';
+      const sql = 'SELECT * FROM "Kacjux"."Orders";';
       const params = [];
       return client
         .query(sql, params)
@@ -67,7 +67,7 @@ exports.orders_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'INSERT INTO "Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") VALUES ($1, $2, $3, $4, $5);';
+        'INSERT INTO "Kacjux"."Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") VALUES ($1, $2, $3, $4, $5);';
       const params = [
         req.body.OrderNo,
         req.body.TotalPrice,
@@ -106,7 +106,7 @@ exports.orders_get = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'SELECT * FROM "Orders" WHERE "OrderId" = $1;';
+      const sql = 'SELECT * FROM "Kacjux"."Orders" WHERE "OrderId" = $1;';
       const params = [id];
       return client
         .query(sql, params)
@@ -144,7 +144,7 @@ exports.orders_update = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'UPDATE "Orders" SET "TotalPrice" = $1, "OrderItem" = $2, "Closed" = $3, "Note" = $4 WHERE "OrderId" = $5;';
+        'UPDATE "Kacjux"."Orders" SET "TotalPrice" = $1, "OrderItem" = $2, "Closed" = $3, "Note" = $4 WHERE "OrderId" = $5;';
       const params = [
         req.body.TotalPrice,
         req.body.OrderItem,
@@ -182,7 +182,7 @@ exports.orders_delete = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'DELETE FROM "Orders" WHERE "OrderId" = $1;';
+      const sql = 'DELETE FROM "Kacjux"."Orders" WHERE "OrderId" = $1;';
       const params = [id];
       return client
         .query(sql, params)
