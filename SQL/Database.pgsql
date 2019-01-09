@@ -38,15 +38,15 @@ ALTER TABLE "Kacjux"."Orders"
 ------ REST Query for Items ------
 SELECT * FROM "Kacjux"."Items";
 INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Pot Stickers', 'require("./app/assets/images/potsticker.jpg")', 'Pot Stickers', 9.75, 'Appetizers');
+VALUES ('Pot Stickers', 'require(''./app/assets/images/potsticker.jpg'')', 'Pot Stickers', 9.75, 'Appetizers');
 INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Mar Far Chichen', 'require("./app/assets/images/mfch.png")', 'Mar Far Chichen', 10.25, 'Selected Delicious Cuisine');
+VALUES ('Mar Far Chichen', 'require(''./app/assets/images/mfch.png'')', 'Mar Far Chichen', 10.25, 'Selected Delicious Cuisine');
 INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Lemon Chicken', 'require("./app/assets/images/lemonch.jpg")', 'Lemon Chicken', 11.75, 'Selected Delicious Cuisine');
+VALUES ('Lemon Chicken', 'require(''./app/assets/images/lemonch.jpg'')', 'Lemon Chicken', 11.75, 'Selected Delicious Cuisine');
 INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Sesame Chicken', 'require("./app/assets/images/sesamech.jpg")', 'Sesame Chicken', 11.50, 'Selected Delicious Cuisine');
+VALUES ('Sesame Chicken', 'require(''./app/assets/images/sesamech.jpg'')', 'Sesame Chicken', 11.50, 'Selected Delicious Cuisine');
 INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Barbeque Pork', 'require("./app/assets/images/bbqpork.jpg")', 'Barbeque Pork', 8.50, 'Appetizers');
+VALUES ('Barbeque Pork', 'require(''./app/assets/images/bbqpork.jpg'')', 'Barbeque Pork', 8.50, 'Appetizers');
 SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = 1;
 UPDATE "Kacjux"."Items" SET "Price" = '$11.00' WHERE "ItemId" = 1;
 DELETE FROM "Kacjux"."Items" WHERE "ItemId" = 1;
