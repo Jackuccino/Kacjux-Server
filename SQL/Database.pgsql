@@ -4,7 +4,6 @@ CREATE TABLE "Kacjux"."Items"
 (
   "ItemId" SERIAL NOT NULL PRIMARY KEY,
   "Key" VARCHAR(150) NOT NULL,
-  "Image" VARCHAR(50),
   "Description" VARCHAR(1000),
   "Price" MONEY NOT NULL,
   "Type" VARCHAR(50) NOT NULL,
@@ -37,16 +36,16 @@ ALTER TABLE "Kacjux"."Orders"
 
 ------ REST Query for Items ------
 SELECT * FROM "Kacjux"."Items";
-INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Pot Stickers', 'potsticker', 'Pot Stickers', 9.75, 'Appetizers');
-INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Mar Far Chichen', 'mfch', 'Mar Far Chichen', 10.25, 'Selected Delicious Cuisine');
-INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Lemon Chicken', 'lemonch', 'Lemon Chicken', 11.75, 'Selected Delicious Cuisine');
-INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Sesame Chicken', 'sesamech', 'Sesame Chicken', 11.50, 'Selected Delicious Cuisine');
-INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
-VALUES ('Barbeque Pork', 'bbqpork', 'Barbeque Pork', 8.50, 'Appetizers');
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES ('Pot Stickers', 'Pot Stickers', 9.75, 'Appetizers');
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES ('Mar Far Chicken', 'Mar Far Chicken', 10.25, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES ('Lemon Chicken', 'Lemon Chicken', 11.75, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES ('Sesame Chicken', 'Sesame Chicken', 11.50, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES ('Barbeque Pork', 'Barbeque Pork', 8.50, 'Appetizers');
 SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = 1;
 UPDATE "Kacjux"."Items" SET "Price" = '$11.00' WHERE "ItemId" = 1;
 DELETE FROM "Kacjux"."Items" WHERE "ItemId" = 1;

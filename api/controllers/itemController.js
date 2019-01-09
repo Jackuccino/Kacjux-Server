@@ -31,7 +31,6 @@ exports.items_get_all = (req, res, next) => {
               return {
                 ItemId: item.ItemId,
                 Key: item.Key,
-                Image: item.Image,
                 Description: item.Description,
                 Price: item.Price,
                 Type: item.Type
@@ -57,10 +56,9 @@ exports.items_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") VALUES ($1, $2, $3, $4, $5);';
+        'INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") VALUES ($1, $2, $3, $4);';
       const params = [
         req.body.Key,
-        req.body.Image,
         req.body.Description,
         req.body.Price,
         req.body.Type
@@ -109,7 +107,6 @@ exports.items_get = (req, res, next) => {
             item: {
               ItemId: result.rows[0].ItemId,
               Key: result.rows[0].Key,
-              Image: result.rows[0].Image,
               Description: result.rows[0].Description,
               Price: result.rows[0].Price,
               Type: result.rows[0].Type
