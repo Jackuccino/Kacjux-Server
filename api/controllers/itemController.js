@@ -171,7 +171,6 @@ exports.items_delete = (req, res, next) => {
           res.status(200).json({
             result: "ok",
             message: "Item deleted"
-            }
           });
         })
         .catch(err => {
