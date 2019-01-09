@@ -30,17 +30,11 @@ exports.items_get_all = (req, res, next) => {
             items: result.rows.map(item => {
               return {
                 ItemId: item.ItemId,
-                Name: item.Name,
+                Name: item.Key,
                 Image: item.Image,
                 Description: item.Description,
                 Price: item.Price,
-                Type: item.Type,
-                request: {
-                  type: "GET",
-                  url: `http://${process.env.PGHOST}:8080/api/items/${
-                    item.ItemId
-                  }`
-                }
+                Type: item.Type
               };
             })
           };
@@ -63,9 +57,9 @@ exports.items_create = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'INSERT INTO "Kacjux"."Items" ("Name", "Image", "Description", "Price", "Type") VALUES ($1, $2, $3, $4, $5);';
+        'INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") VALUES ($1, $2, $3, $4, $5);';
       const params = [
-        req.body.Name,
+        req.body.Key,
         req.body.Image,
         req.body.Description,
         req.body.Price,
@@ -78,12 +72,7 @@ exports.items_create = (req, res, next) => {
           if (result.rowCount) {
             res.status(201).json({
               result: "ok",
-              message: "Created item successfully",
-              request: {
-                type: "GET",
-                description: "Get all items",
-                url: `http://${process.env.PGHOST}:8080/api/items/`
-              }
+              message: "Created item successfully"
             });
           } else {
             res.status(500).json({ error: "Creating item failed" });
@@ -119,15 +108,11 @@ exports.items_get = (req, res, next) => {
             result: "ok",
             item: {
               ItemId: result.rows[0].ItemId,
-              Name: result.rows[0].Name,
+              Name: result.rows[0].Key,
               Image: result.rows[0].Image,
               Description: result.rows[0].Description,
               Price: result.rows[0].Price,
               Type: result.rows[0].Type
-            },
-            request: {
-              type: "DELETE",
-              url: `http://${process.env.PGHOST}:8080/api/items/${id}`
             }
           });
         })
@@ -149,25 +134,15 @@ exports.items_update = (req, res, next) => {
     .connect()
     .then(client => {
       const sql =
-        'UPDATE "Kacjux"."Items" SET "Name" = $1, "Description" = $2, "Price" = $3, "Type" = $4 WHERE "ItemId" = $5;';
-      const params = [
-        req.body.Name,
-        req.body.Description,
-        req.body.Price,
-        req.body.Type,
-        id
-      ];
+        'UPDATE "Kacjux"."Items" SET "Closed" = $1 WHERE "ItemId" = $2;';
+      const params = [req.body.Closed, id];
       return client
         .query(sql, params)
         .then(result => {
           client.release();
           res.status(200).json({
             result: "ok",
-            message: "Item updated",
-            request: {
-              type: "GET",
-              url: `http://${process.env.PGHOST}:8080/api/items/${id}`
-            }
+            message: "Item updated"
           });
         })
         .catch(err => {
@@ -195,17 +170,7 @@ exports.items_delete = (req, res, next) => {
           client.release();
           res.status(200).json({
             result: "ok",
-            message: "Item deleted",
-            request: {
-              type: "POST",
-              url: `http://${process.env.PGHOST}:8080/api/items/`,
-              body: {
-                Name: "Name",
-                Image: "Image",
-                Description: "Description",
-                Price: "Price",
-                Type: "Type"
-              }
+            message: "Item deleted"
             }
           });
         })

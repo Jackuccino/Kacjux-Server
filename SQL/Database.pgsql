@@ -3,7 +3,7 @@
 CREATE TABLE "Kacjux"."Items"
 (
   "ItemId" SERIAL NOT NULL PRIMARY KEY,
-  "Name" VARCHAR(150) NOT NULL,
+  "Key" VARCHAR(150) NOT NULL,
   "Image" VARCHAR(50),
   "Description" VARCHAR(1000),
   "Price" MONEY NOT NULL,
@@ -37,7 +37,16 @@ ALTER TABLE "Kacjux"."Orders"
 
 ------ REST Query for Items ------
 SELECT * FROM "Kacjux"."Items";
-INSERT INTO "Kacjux"."Items" ("Name", "Image", "Description", "Price", "Type") VALUES ('Mar Far Chichen', 'mfch.png', 'Fried Chichen', 10.00, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
+VALUES ('Pot Stickers', 'require("./app/assets/images/potsticker.jpg")', 'Pot Stickers', 9.75, 'Appetizers');
+INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
+VALUES ('Mar Far Chichen', 'require("./app/assets/images/mfch.png")', 'Mar Far Chichen', 10.25, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
+VALUES ('Lemon Chicken', 'require("./app/assets/images/lemonch.jpg")', 'Lemon Chicken', 11.75, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
+VALUES ('Sesame Chicken', 'require("./app/assets/images/sesamech.jpg")', 'Sesame Chicken', 11.50, 'Selected Delicious Cuisine');
+INSERT INTO "Kacjux"."Items" ("Key", "Image", "Description", "Price", "Type") 
+VALUES ('Barbeque Pork', 'require("./app/assets/images/bbqpork.jpg")', 'Barbeque Pork', 8.50, 'Appetizers');
 SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = 1;
 UPDATE "Kacjux"."Items" SET "Price" = '$11.00' WHERE "ItemId" = 1;
 DELETE FROM "Kacjux"."Items" WHERE "ItemId" = 1;
@@ -52,35 +61,35 @@ DELETE FROM "Kacjux"."Orders" WHERE "OrderId" = 5;
 ------ Postman Body ------
 -- insert item --
 {
-  "Name": "Pot Stickers",
+  "Key": "Pot Stickers",
   "Image": "require('./app/assets/images/potsticker.jpg')",
   "Description": "Pot Stickers",
   "Price": 9.75,
   "Type": "Appetizers"
 }
 {
-  "Name": "Mar Far Chichen",
+  "Key": "Mar Far Chichen",
   "Image": "require('./app/assets/images/mfch.png')",
   "Description": "Mar Far Chichen",
   "Price": 10.25,
   "Type": "Selected Delicious Cuisine"
 }
 {
-  "Name": "Lemon Chicken",
+  "Key": "Lemon Chicken",
   "Image": "require('./app/assets/images/lemonch.jpg')",
   "Description": "Lemon Chicken",
   "Price": 11.75,
   "Type": "Selected Delicious Cuisine"
 }
 {
-  "Name": "Sesame Chicken",
+  "Key": "Sesame Chicken",
   "Image": "require('./app/assets/images/sesamech.jpg')",
   "Description": "Sesame Chicken",
   "Price": 11.50,
   "Type": "Selected Delicious Cuisine"
 }
 {
-  "Name": "Barbeque Pork",
+  "Key": "Barbeque Pork",
   "Image": "require('./app/assets/images/bbqpork.jpg')",
   "Description": "Barbeque Pork",
   "Price": 8.50,
