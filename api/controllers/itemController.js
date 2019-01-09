@@ -30,7 +30,7 @@ exports.items_get_all = (req, res, next) => {
             items: result.rows.map(item => {
               return {
                 ItemId: item.ItemId,
-                Name: item.Key,
+                Key: item.Key,
                 Image: item.Image,
                 Description: item.Description,
                 Price: item.Price,
@@ -108,7 +108,7 @@ exports.items_get = (req, res, next) => {
             result: "ok",
             item: {
               ItemId: result.rows[0].ItemId,
-              Name: result.rows[0].Key,
+              Key: result.rows[0].Key,
               Image: result.rows[0].Image,
               Description: result.rows[0].Description,
               Price: result.rows[0].Price,
