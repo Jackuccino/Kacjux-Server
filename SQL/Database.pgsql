@@ -34,19 +34,78 @@ WITH (
 ALTER TABLE "Kacjux"."Orders"
   OWNER TO jackxu;
 
------- Create Procedures ------
---DROP PROCEDURE "Kacjux".Close_Order;
-CREATE PROCEDURE "Kacjux"."Close_Order"(id INTEGER, tf BOOLEAN)
+------ Create Item Procedures ------
+--DROP PROCEDURE "Kacjux"."Get_All_Items";
+CREATE PROCEDURE "Kacjux"."Get_All_Items"()
+LANGUAGE SQL
+AS $$
+SELECT * FROM "Kacjux"."Items";
+$$;
+
+--DROP PROCEDURE "Kacjux"."Insert_Item";
+CREATE PROCEDURE "Kacjux"."Insert_Item"(key VARCHAR(150), description VARCHAR(1000), price MONEY, type VARCHAR(50))
+LANGUAGE SQL
+AS $$
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES (key, description, price, type);
+$$;
+
+--DROP PROCEDURE "Kacjux"."Get_Item";
+CREATE PROCEDURE "Kacjux"."Get_Item"(id INTEGER)
+LANGUAGE SQL
+AS $$
+SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = id;
+$$;
+
+--DROP PROCEDURE "Kacjux"."Update_Item";
+CREATE PROCEDURE "Kacjux"."Update_Item"(key VARCHAR(150), description VARCHAR(1000), price MONEY, type VARCHAR(50), id INTEGER)
+LANGUAGE SQL
+AS $$
+UPDATE "Kacjux"."Items" SET "Key" = key, "Description" = description, "Price" = price, "Type" = type WHERE "ItemId" = id;
+$$;
+
+--DROP PROCEDURE "Kacjux"."Delete_Item";
+CREATE PROCEDURE "Kacjux"."Delete_Item"(id INTEGER)
+LANGUAGE SQL
+AS $$
+DELETE FROM "Kacjux"."Items" WHERE "ItemId" = id;
+$$;
+
+------ Create Order Procedures ------
+--DROP PROCEDURE "Kacjux"."Get_All_Orders";
+CREATE PROCEDURE "Kacjux"."Get_All_Orders"()
+LANGUAGE SQL
+AS $$
+SELECT * FROM "Kacjux"."Orders";
+$$;
+
+--DROP PROCEDURE "Kacjux"."Insert_Order";
+CREATE PROCEDURE "Kacjux"."Insert_Order"(orderno INTEGER, totalprice MONEY, itemid INTEGER, quantity INTEGER, note VARCHAR(1000))
+LANGUAGE SQL
+AS $$
+INSERT INTO "Kacjux"."Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") 
+VALUES (orderno, totalprice, itemid, quantity, note);
+$$;
+
+--DROP PROCEDURE "Kacjux"."Get_Order";
+CREATE PROCEDURE "Kacjux"."Get_Order"(id INTEGER)
+LANGUAGE SQL
+AS $$
+SELECT * FROM "Kacjux"."Orders" WHERE "OrderId" = id;
+$$;
+
+--DROP PROCEDURE "Kacjux"."Close_Order";
+CREATE PROCEDURE "Kacjux"."Close_Order"(tf BOOLEAN, id INTEGER)
 LANGUAGE SQL
 AS $$
 UPDATE "Kacjux"."Orders" SET "Closed" = tf WHERE "OrderId" = id;
 $$;
 
---DROP PROCEDURE "Kacjux".Get_All_Orders;
-CREATE PROCEDURE "Kacjux"."Get_All_Orders"()
+--DROP PROCEDURE "Kacjux"."Delete_Order";
+CREATE PROCEDURE "Kacjux"."Delete_Order"(id INTEGER)
 LANGUAGE SQL
 AS $$
-SELECT * FROM "Kacjux"."Orders";
+DELETE FROM "Kacjux"."Orders" WHERE "OrderId" = id;
 $$;
 
 ------ REST Query for Items ------

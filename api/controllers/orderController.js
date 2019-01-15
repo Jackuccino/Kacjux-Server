@@ -66,8 +66,7 @@ exports.orders_create = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql =
-        'INSERT INTO "Kacjux"."Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note") VALUES ($1, $2, $3, $4, $5);';
+      const sql = 'CALL "Kacjux"."Insert_Order"($1, $2, $3, $4, $5);';
       const params = [
         req.body.OrderNo,
         req.body.TotalPrice,
@@ -106,7 +105,7 @@ exports.orders_get = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'SELECT * FROM "Kacjux"."Orders" WHERE "OrderId" = $1;';
+      const sql = 'CALL "Kacjux"."Get_Order"($1);';
       const params = [id];
       return client
         .query(sql, params)
@@ -175,7 +174,7 @@ exports.orders_delete = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'DELETE FROM "Kacjux"."Orders" WHERE "OrderId" = $1;';
+      const sql = 'CALL "Kacjux"."Delete_Order"($1);';
       const params = [id];
       return client
         .query(sql, params)
