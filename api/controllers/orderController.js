@@ -18,7 +18,7 @@ exports.orders_get_all = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'SELECT * FROM "Kacjux"."Orders";';
+      const sql = 'CALL "Kacjux".Get_All_Orders();';
       const params = [];
       return client
         .query(sql, params)
@@ -143,15 +143,8 @@ exports.orders_update = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql =
-        'UPDATE "Kacjux"."Orders" SET "TotalPrice" = $1, "OrderItem" = $2, "Closed" = $3, "Note" = $4 WHERE "OrderId" = $5;';
-      const params = [
-        req.body.TotalPrice,
-        req.body.OrderItem,
-        req.body.Closed,
-        req.body.Note,
-        id
-      ];
+      const sql = "CALL Close_Order($1, $2);";
+      const params = [req.body.Closed, id];
       return client
         .query(sql, params)
         .then(result => {

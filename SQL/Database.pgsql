@@ -34,6 +34,21 @@ WITH (
 ALTER TABLE "Kacjux"."Orders"
   OWNER TO jackxu;
 
+------ Create Procedures ------
+--DROP PROCEDURE "Kacjux".Close_Order;
+CREATE PROCEDURE "Kacjux"."Close_Order"(id INTEGER, tf BOOLEAN)
+LANGUAGE SQL
+AS $$
+UPDATE "Kacjux"."Orders" SET "Closed" = tf WHERE "OrderId" = id;
+$$;
+
+--DROP PROCEDURE "Kacjux".Get_All_Orders;
+CREATE PROCEDURE "Kacjux"."Get_All_Orders"()
+LANGUAGE SQL
+AS $$
+SELECT * FROM "Kacjux"."Orders";
+$$;
+
 ------ REST Query for Items ------
 SELECT * FROM "Kacjux"."Items";
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
