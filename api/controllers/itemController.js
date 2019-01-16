@@ -18,7 +18,7 @@ exports.items_get_all = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'SELECT "Kacjux"."Get_All_Orders"();';
+      const sql = 'SELECT * FROM "Kacjux"."Get_All_Orders"();';
       const params = [];
       return client
         .query(sql, params)

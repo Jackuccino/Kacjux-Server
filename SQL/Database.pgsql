@@ -42,6 +42,8 @@ AS $$
 SELECT * FROM "Kacjux"."Items";
 $$;
 
+SELECT "Kacjux"."Get_All_Items"();
+
 CREATE OR REPLACE PROCEDURE "Kacjux"."Insert_Item"(key VARCHAR(150), description VARCHAR(1000), price MONEY, type VARCHAR(50))
 LANGUAGE SQL
 AS $$
