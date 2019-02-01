@@ -118,6 +118,8 @@ INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type")
 VALUES ('Pork Fried Rice', 'Pork Fried Rice', 8.50, 'Rice');
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
 VALUES ('Pork Foo Young', 'Pork Foo Young', 10.00, 'Egg Foo Young');
+INSERT INTO "Kacjux"."Items" ("Key", "Description", "Price", "Type") 
+VALUES ('Beef Chow Fun', 'Beef Chow Fun', 12.50, 'Selected Delicious Cuisine');
 SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = 1;
 UPDATE "Kacjux"."Items" SET "Price" = '$11.00' WHERE "ItemId" = 1;
 DELETE FROM "Kacjux"."Items" WHERE "ItemId" = 1;
