@@ -37,6 +37,7 @@ exports.orders_get_all = (req, res, next) => {
                   Quantity: order.Quantity,
                   Closed: order.Closed,
                   Note: order.Note,
+                  TableNum: order.TableNum,
                   Date: order.Date
                 },
                 request: {
@@ -66,13 +67,14 @@ exports.orders_create = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Kacjux"."Insert_Order"($1, $2, $3, $4, $5);';
+      const sql = 'CALL "Kacjux"."Insert_Order"($1, $2, $3, $4, $5, $6);';
       const params = [
         req.body.OrderNo,
         req.body.TotalPrice,
         req.body.OrderItem,
         req.body.Quantity,
-        req.body.Note
+        req.body.Note,
+        req.body.TableNum
       ];
       return client
         .query(sql, params)
@@ -191,7 +193,8 @@ exports.orders_delete = (req, res, next) => {
                 TotalPrice: "TotalPrice",
                 OrderItem: "OrderItem",
                 Quantity: "Quantity",
-                Note: "Note"
+                Note: "Note",
+                TableNum: "TableNum"
               }
             }
           });

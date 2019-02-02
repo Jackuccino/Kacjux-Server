@@ -32,6 +32,7 @@ exports.items_get_all = (req, res, next) => {
                 ItemId: item.ItemId,
                 Key: item.Key,
                 Description: item.Description,
+                Image: item.Image,
                 Price: item.Price,
                 Type: item.Type
               };
@@ -55,10 +56,11 @@ exports.items_create = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Kacjux"."Insert_Item"($1, $2, $3, $4);';
+      const sql = 'CALL "Kacjux"."Insert_Item"($1, $2, $3, $4, $5);';
       const params = [
         req.body.Key,
         req.body.Description,
+        req.body.Image,
         req.body.Price,
         req.body.Type
       ];
@@ -107,6 +109,7 @@ exports.items_get = (req, res, next) => {
               ItemId: result.rows[0].ItemId,
               Key: result.rows[0].Key,
               Description: result.rows[0].Description,
+              Image: result.rows[0].Image,
               Price: result.rows[0].Price,
               Type: result.rows[0].Type
             }
@@ -129,10 +132,11 @@ exports.items_update = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Kacjux"."Update_Item"($1, $2, $3, $4, $5);';
+      const sql = 'CALL "Kacjux"."Update_Item"($1, $2, $3, $4, $5. $6);';
       const params = [
         req.body.Key,
         req.body.Description,
+        req.body.Image,
         req.body.Price,
         req.body.Type,
         id
