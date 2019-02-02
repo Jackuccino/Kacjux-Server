@@ -141,28 +141,60 @@ DROP PROCEDURE "Kacjux"."Delete_Order";
 SELECT * FROM "Kacjux"."Items";
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Pot Stickers', 'Pot Stickers', 'require("../assets/images/potsticker.jpg");', 9.75, 'Appetizers');
+VALUES ('Pot Stickers', 'Pot Stickers', 'pot_sticker', 9.75, 'Appetizers');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Pot Stickers' AS VARCHAR(150)), 
+CAST('Pot Stickers' AS VARCHAR(1000)), CAST('pot_sticker' AS VARCHAR(150)), 
+CAST(8.25 AS MONEY), CAST('Appetizers' AS VARCHAR(50)), CAST(1 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Mar Far Chicken', 'Mar Far Chicken', 'require("../assets/images/mfch.png");', 10.25, 'Selected Delicious Cuisine');
+VALUES ('Mar Far Chicken', 'Mar Far Chicken', 'mar_far_chicken', 10.75, 'Selected Delicious Cuisine');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Mar Far Chicken' AS VARCHAR(150)), 
+CAST('Mar Far Chicken' AS VARCHAR(1000)), CAST('mar_far_chicken' AS VARCHAR(150)), 
+CAST(10.75 AS MONEY), CAST('Selected Delicious Cuisine' AS VARCHAR(50)), CAST(2 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Lemon Chicken', 'Lemon Chicken', 'require("../assets/images/lemonch.jpg");', 11.75, 'Selected Delicious Cuisine');
+VALUES ('Lemon Chicken', 'Lemon Chicken', 'lemon_chicken', 12.25, 'Selected Delicious Cuisine');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Lemon Chicken' AS VARCHAR(150)), 
+CAST('Lemon Chicken' AS VARCHAR(1000)), CAST('lemon_chicken' AS VARCHAR(150)), 
+CAST(12.25 AS MONEY), CAST('Selected Delicious Cuisine' AS VARCHAR(50)), CAST(3 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Sesame Chicken', 'Sesame Chicken', 'require("../assets/images/sesamech.jpg");', 11.50, 'Selected Delicious Cuisine');
+VALUES ('Sesame Chicken', 'Sesame Chicken', 'sesame_chicken', 12.00, 'Hot Spicy & House Specials');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Sesame Chicken' AS VARCHAR(150)), 
+CAST('Sesame Chicken' AS VARCHAR(1000)), CAST('sesame_chicken' AS VARCHAR(150)), 
+CAST(12.00 AS MONEY), CAST('Hot Spicy & House Specials' AS VARCHAR(50)), CAST(4 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Barbeque Pork', 'Barbeque Pork', 'require("../assets/images/bbqpork.jpg");', 8.50, 'Appetizers');
+VALUES ('Barbeque Pork', 'Barbeque Pork', 'barbeque_pork', 9.00, 'Appetizers');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Barbeque Pork' AS VARCHAR(150)), 
+CAST('Barbeque Pork' AS VARCHAR(1000)), CAST('barbeque_pork' AS VARCHAR(150)), 
+CAST(9.00 AS MONEY), CAST('Appetizers' AS VARCHAR(50)), CAST(5 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Pork Fried Rice', 'Pork Fried Rice', 'require("../assets/images/pfrice.jpg");', 8.50, 'Rice');
+VALUES ('Pork Fried Rice', 'Pork Fried Rice', 'pork_fried_rice', 8.50, 'Rice');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Pork Fried Rice' AS VARCHAR(150)), 
+CAST('Pork Fried Rice' AS VARCHAR(1000)), CAST('pork_fried_rice' AS VARCHAR(150)), 
+CAST(8.75 AS MONEY), CAST('Rice' AS VARCHAR(50)), CAST(6 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Pork Foo Young', 'Pork Foo Young', 'require("../assets/images/porkefy.jpg");', 10.00, 'Egg Foo Young');
+VALUES ('Pork Foo Young', 'Pork Foo Young', 'pork_foo_young', 10.00, 'Egg Foo Young');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Pork Foo Young' AS VARCHAR(150)), 
+CAST('Pork Foo Young' AS VARCHAR(1000)), CAST('pork_foo_young' AS VARCHAR(150)), 
+CAST(10.00 AS MONEY), CAST('Egg Foo Young' AS VARCHAR(50)), CAST(7 AS INTEGER))
 --------------------------------------------------------------------
 INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type") 
-VALUES ('Beef Chow Fun', 'Beef Chow Fun', 'require("../assets/images/bchowfun.jpg");', 12.50, 'Selected Delicious Cuisine');
+VALUES ('Beef Chow Fun', 'Beef Chow Fun', 'beef_chow_fun', 12.50, 'Selected Delicious Cuisine');
+--------------------------------------------------------------------
+CALL "Kacjux"."Update_Item"(CAST('Beef Chow Fun' AS VARCHAR(150)), 
+CAST('Beef Chow Fun' AS VARCHAR(1000)), CAST('beef_chow_fun' AS VARCHAR(150)), 
+CAST(12.50 AS MONEY), CAST('Selected Delicious Cuisine' AS VARCHAR(50)), CAST(8 AS INTEGER))
 --------------------------------------------------------------------
 SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = 1;
 --------------------------------------------------------------------
