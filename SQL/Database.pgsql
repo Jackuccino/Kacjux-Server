@@ -85,7 +85,6 @@ DROP PROCEDURE "Kacjux"."Delete_Item";
 --------------------------------------------------------------------
 
 ------ Create Order Procedures ------
---- 
 --------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION "Kacjux"."Get_All_Orders"()
 RETURNS SETOF "Kacjux"."Orders"
@@ -93,7 +92,6 @@ LANGUAGE SQL
 AS $$
 SELECT * FROM "Kacjux"."Orders";
 $$;
---- 
 --------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE "Kacjux"."Insert_Order"(orderno INTEGER, totalprice MONEY, itemid INTEGER, quantity INTEGER, note VARCHAR(1000), tableNum INTEGER)
 LANGUAGE SQL
@@ -101,26 +99,35 @@ AS $$
 INSERT INTO "Kacjux"."Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity", "Note", "TableNum") 
 VALUES (orderno, totalprice, itemid, quantity, note, tableNum);
 $$;
---- 
 --------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE "Kacjux"."Get_Order"(id INTEGER)
 LANGUAGE SQL
 AS $$
-SELECT * FROM "Kacjux"."Orders" WHERE "OrderId" = id;
+SELECT * FROM "Kacjux"."Orders" WHERE "OrderNo" = id;
 $$;
---- 
 --------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE "Kacjux"."Close_Order"(tf BOOLEAN, id INTEGER)
+CREATE OR REPLACE PROCEDURE "Kacjux"."Close_Order"(id INTEGER, tf BOOLEAN)
 LANGUAGE SQL
 AS $$
-UPDATE "Kacjux"."Orders" SET "Closed" = tf WHERE "OrderId" = id;
+UPDATE "Kacjux"."Orders" SET "Closed" = tf WHERE "OrderNo" = id;
 $$;
---- 
+--------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE "Kacjux"."Reduce_Quantity"(id INTEGER, quantity INTEGER)
+LANGUAGE SQL
+AS $$
+UPDATE "Kacjux"."Orders" SET "Quantity" = quantity WHERE "OrderNo" = id;
+$$;
 --------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE "Kacjux"."Delete_Order"(id INTEGER)
 LANGUAGE SQL
 AS $$
-DELETE FROM "Kacjux"."Orders" WHERE "OrderId" = id;
+DELETE FROM "Kacjux"."Orders" WHERE "OrderNo" = id;
+$$;
+--------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE "Kacjux"."Delete_Items_In_Order"(id INTEGER, itemId INTEGER)
+LANGUAGE SQL
+AS $$
+DELETE FROM "Kacjux"."Orders" WHERE "OrderNo" = id and "OrderItem" = itemId;
 $$;
 --------------------------------------------------------------------
 
@@ -133,7 +140,11 @@ DROP PROCEDURE "Kacjux"."Get_Order";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Close_Order";
 --------------------------------------------------------------------
+DROP PROCEDURE "Kacjux"."Reduce_Quantity";
+--------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Delete_Order";
+--------------------------------------------------------------------
+DROP PROCEDURE "Kacjux"."Delete_Items_In_Order";
 --------------------------------------------------------------------
 
 ------ REST Query for Items ------

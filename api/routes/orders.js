@@ -12,10 +12,19 @@ router.post("/", OrdersController.orders_create);
 // Handle a GET request which will get the specific order
 router.get("/:orderId", OrdersController.orders_get);
 
-// Handle a PATCH request which will update the specific order
-router.patch("/:orderId", OrdersController.orders_update);
+// Handle a PATCH request which will close the specific order
+router.patch("/close-order/:orderId", OrdersController.orders_close);
+
+// Handle a PATCH request which will change the specific order's quantity
+router.patch(
+  "/change-quantity/:orderId",
+  OrdersController.orders_change_quantity
+);
 
 // Handle a DELETE request which will delete the specific order
-router.delete("/:orderId", OrdersController.orders_delete);
+router.delete("/delete-order/:orderId", OrdersController.orders_delete);
+
+// Handle a DELETE request which will delete the specific items in specific order
+router.delete("/remove-item/:orderId", OrdersController.orders_delete_item);
 
 module.exports = router;

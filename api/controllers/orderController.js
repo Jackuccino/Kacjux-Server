@@ -39,12 +39,6 @@ exports.orders_get_all = (req, res, next) => {
                   Note: order.Note,
                   TableNum: order.TableNum,
                   Date: order.Date
-                },
-                request: {
-                  type: "GET",
-                  url: `http://${process.env.PGHOST}:8080/api/orders/${
-                    order.OrderId
-                  }`
                 }
               };
             })
@@ -82,12 +76,7 @@ exports.orders_create = (req, res, next) => {
           client.release();
           res.status(201).json({
             result: "ok",
-            message: "Created order successfully",
-            request: {
-              type: "GET",
-              description: "Get all orders",
-              url: `http://${process.env.PGHOST}:8080/api/orders/`
-            }
+            message: "Created order successfully"
           });
         })
         .catch(err => {
@@ -120,11 +109,7 @@ exports.orders_get = (req, res, next) => {
           }
           res.status(200).json({
             result: "ok",
-            order: result.rows[0],
-            request: {
-              type: "DELETE",
-              url: `http://${process.env.PGHOST}:8080/api/orders/${id}`
-            }
+            order: result.rows[0]
           });
         })
         .catch(err => {
@@ -139,24 +124,48 @@ exports.orders_get = (req, res, next) => {
     });
 };
 
-exports.orders_update = (req, res, next) => {
+exports.orders_close = (req, res, next) => {
   const id = req.params.orderId;
   pool
     .connect()
     .then(client => {
       const sql = 'CALL "Close_Order"($1, $2);';
-      const params = [req.body.Closed, id];
+      const params = [id, true];
       return client
         .query(sql, params)
         .then(result => {
           client.release();
           res.status(200).json({
             result: "ok",
-            message: "Order updated",
-            request: {
-              type: "GET",
-              url: `http://${process.env.PGHOST}:8080/api/orders/${id}`
-            }
+            message: "Order updated"
+          });
+        })
+        .catch(err => {
+          client.release();
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+exports.orders_change_quantity = (req, res, next) => {
+  const id = req.params.orderId;
+  pool
+    .connect()
+    .then(client => {
+      const sql = 'CALL "Reduce_Quantity"($1, $2);';
+      const params = [id, req.body.Quantity];
+      return client
+        .query(sql, params)
+        .then(result => {
+          client.release();
+          res.status(200).json({
+            result: "ok",
+            message: "Order updated"
           });
         })
         .catch(err => {
@@ -184,19 +193,35 @@ exports.orders_delete = (req, res, next) => {
           client.release();
           res.status(200).json({
             result: "ok",
-            message: "Order deleted",
-            request: {
-              type: "POST",
-              url: `http://${process.env.PGHOST}:8080/api/orders/`,
-              body: {
-                OrderNo: "OrderNo",
-                TotalPrice: "TotalPrice",
-                OrderItem: "OrderItem",
-                Quantity: "Quantity",
-                Note: "Note",
-                TableNum: "TableNum"
-              }
-            }
+            message: "Order deleted"
+          });
+        })
+        .catch(err => {
+          client.release();
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+exports.orders_delete_item = (req, res, next) => {
+  const id = req.params.orderId;
+  pool
+    .connect()
+    .then(client => {
+      const sql = 'CALL "Kacjux"."Delete_Items_In_Order"($1, $2);';
+      const params = [id, req.body.OrderItem];
+      return client
+        .query(sql, params)
+        .then(result => {
+          client.release();
+          res.status(200).json({
+            result: "ok",
+            message: "Item deleted from order"
           });
         })
         .catch(err => {
