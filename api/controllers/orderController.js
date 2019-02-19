@@ -157,8 +157,8 @@ exports.orders_change_quantity = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Reduce_Quantity"($1, $2);';
-      const params = [id, req.body.Quantity];
+      const sql = 'CALL "Reduce_Quantity"($1, $2, $3);';
+      const params = [id, req.body.Quantity, req.body.OrderItem];
       return client
         .query(sql, params)
         .then(result => {

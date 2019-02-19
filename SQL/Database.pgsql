@@ -112,10 +112,10 @@ AS $$
 UPDATE "Kacjux"."Orders" SET "Closed" = tf WHERE "OrderNo" = id;
 $$;
 --------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE "Kacjux"."Reduce_Quantity"(id INTEGER, quantity INTEGER)
+CREATE OR REPLACE PROCEDURE "Kacjux"."Reduce_Quantity"(id INTEGER, quantity INTEGER, itemId INTEGER)
 LANGUAGE SQL
 AS $$
-UPDATE "Kacjux"."Orders" SET "Quantity" = quantity WHERE "OrderNo" = id;
+UPDATE "Kacjux"."Orders" SET "Quantity" = quantity WHERE "OrderNo" = id and "OrderItem" = itemId;
 $$;
 --------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE "Kacjux"."Delete_Order"(id INTEGER)
