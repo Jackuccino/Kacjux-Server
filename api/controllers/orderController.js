@@ -129,7 +129,7 @@ exports.orders_close = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Close_Order"($1, $2);';
+      const sql = 'CALL "Kacjux"."Close_Order"($1, $2);';
       const params = [id, true];
       return client
         .query(sql, params)
@@ -157,8 +157,7 @@ exports.orders_change_quantity = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql =
-        'CALL "Reduce_Quantity"($1, CAST($2 AS INTEGER), CAST($3 AS INTEGER));';
+      const sql = 'CALL "Kacjux"."Reduce_Quantity"($1, $2, $3);';
       const params = [id, req.body.Quantity, req.body.OrderItem];
       return client
         .query(sql, params)
