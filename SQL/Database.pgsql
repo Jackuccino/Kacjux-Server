@@ -52,7 +52,8 @@ INSERT INTO "Kacjux"."Items" ("Key", "Description", "Image", "Price", "Type")
 VALUES (key, description, image, price, type);
 $$;
 --------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE "Kacjux"."Get_Item"(id INTEGER)
+CREATE OR REPLACE FUNCTION "Kacjux"."Get_Item"(id INTEGER)
+RETURNS SETOF "Kacjux"."Items"
 LANGUAGE SQL
 AS $$
 SELECT * FROM "Kacjux"."Items" WHERE "ItemId" = id;
@@ -77,7 +78,7 @@ DROP FUNCTION "Kacjux"."Get_All_Items";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Insert_Item";
 --------------------------------------------------------------------
-DROP PROCEDURE "Kacjux"."Get_Item";
+DROP FUNCTION "Kacjux"."Get_Item";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Update_Item";
 --------------------------------------------------------------------
@@ -100,7 +101,8 @@ INSERT INTO "Kacjux"."Orders" ("OrderNo", "TotalPrice", "OrderItem", "Quantity",
 VALUES (orderno, totalprice, itemid, quantity, note, tableNum);
 $$;
 --------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE "Kacjux"."Get_Order"(id INTEGER)
+CREATE OR REPLACE FUNCTION "Kacjux"."Get_Order"(id INTEGER)
+RETURNS SETOF "Kacjux"."Orders"
 LANGUAGE SQL
 AS $$
 SELECT * FROM "Kacjux"."Orders" WHERE "OrderNo" = id;
@@ -136,7 +138,7 @@ DROP FUNCTION "Kacjux"."Get_All_Orders";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Insert_Order";
 --------------------------------------------------------------------
-DROP PROCEDURE "Kacjux"."Get_Order";
+DROP FUNCTION "Kacjux"."Get_Order";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Close_Order";
 --------------------------------------------------------------------
