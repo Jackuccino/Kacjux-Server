@@ -109,7 +109,23 @@ exports.orders_get = (req, res, next) => {
           }
           res.status(200).json({
             result: "ok",
-            order: result.rows[0]
+            count: result.rowCount,
+            orders: result.rows.map(order => {
+              return {
+                result: "ok",
+                order: {
+                  OrderId: order.OrderId,
+                  OrderNo: order.OrderNo,
+                  TotalPrice: order.TotalPrice,
+                  OrderItem: order.OrderItem,
+                  Quantity: order.Quantity,
+                  Closed: order.Closed,
+                  Note: order.Note,
+                  TableNum: order.TableNum,
+                  Date: order.Date
+                }
+              };
+            })
           });
         })
         .catch(err => {
