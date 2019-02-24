@@ -94,7 +94,7 @@ exports.items_get = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Kacjux"."Get_Item"($1);';
+      const sql = 'SELECT * FROM "Kacjux"."Get_Item"($1);';
       const params = [id];
       return client
         .query(sql, params)
