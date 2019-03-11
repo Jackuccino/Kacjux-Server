@@ -26,6 +26,7 @@ CREATE TABLE "Kacjux"."Orders"
   "OrderItem" INTEGER NOT NULL REFERENCES "Kacjux"."Items"("ItemId"),
   "Quantity" INTEGER NOT NULL DEFAULT 1,
   "Closed" BOOLEAN NOT NULL DEFAULT false,
+  "Finished" BOOLEAN NOT NULL DEFAULT false,
   "Note" VARCHAR(1000),
   "TableNum" INTEGER NOT NULL,
   "Date" DATE NOT NULL DEFAULT CURRENT_DATE
@@ -112,6 +113,12 @@ CREATE OR REPLACE PROCEDURE "Kacjux"."Close_Order"(id INTEGER, tf BOOLEAN)
 LANGUAGE SQL
 AS $$
 UPDATE "Kacjux"."Orders" SET "Closed" = tf WHERE "OrderNo" = id;
+$$;
+--------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE "Kacjux"."Finish_Order"(id INTEGER, tf BOOLEAN)
+LANGUAGE SQL
+AS $$
+UPDATE "Kacjux"."Orders" SET "Finished" = tf WHERE "OrderNo" = id;
 $$;
 --------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE "Kacjux"."Reduce_Quantity"(id INTEGER, quantity INTEGER, itemId INTEGER)

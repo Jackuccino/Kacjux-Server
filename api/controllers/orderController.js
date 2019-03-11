@@ -168,6 +168,34 @@ exports.orders_close = (req, res, next) => {
     });
 };
 
+exports.orders_finish = (req, res, next) => {
+  const id = req.params.orderId;
+  pool
+    .connect()
+    .then(client => {
+      const sql = 'CALL "Kacjux"."Finish_Order"($1, $2);';
+      const params = [id, true];
+      return client
+        .query(sql, params)
+        .then(result => {
+          client.release();
+          res.status(200).json({
+            result: "ok",
+            message: "Order updated"
+          });
+        })
+        .catch(err => {
+          client.release();
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
 exports.orders_change_quantity = (req, res, next) => {
   const id = req.params.orderId;
   pool

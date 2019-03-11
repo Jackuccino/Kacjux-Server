@@ -15,6 +15,9 @@ router.get("/:orderId", OrdersController.orders_get);
 // Handle a PATCH request which will close the specific order
 router.patch("/close-order/:orderId", OrdersController.orders_close);
 
+// Handle a PATCH request which will finish the specific order
+router.patch("/finish-order/:orderId", OrdersController.orders_finish);
+
 // Handle a PATCH request which will change the specific order's quantity
 router.patch(
   "/change-quantity/:orderId",
