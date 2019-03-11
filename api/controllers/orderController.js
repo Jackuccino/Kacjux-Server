@@ -36,6 +36,7 @@ exports.orders_get_all = (req, res, next) => {
                   OrderItem: order.OrderItem,
                   Quantity: order.Quantity,
                   Closed: order.Closed,
+                  Finished: order.Finished,
                   Note: order.Note,
                   TableNum: order.TableNum,
                   Date: order.Date
@@ -120,6 +121,7 @@ exports.orders_get = (req, res, next) => {
                   OrderItem: order.OrderItem,
                   Quantity: order.Quantity,
                   Closed: order.Closed,
+                  Finished: order.Finished,
                   Note: order.Note,
                   TableNum: order.TableNum,
                   Date: order.Date
