@@ -281,3 +281,48 @@ exports.orders_delete_item = (req, res, next) => {
       res.status(500).json({ error: err });
     });
 };
+
+exports.orders_get_table = (req, res, next) => {
+  const id = req.params.tableNo;
+  pool
+    .connect()
+    .then(client => {
+      const sql = 'SELECT * FROM "Kacjux"."Get_Table_Orders"($1);';
+      const params = [id];
+      return client
+        .query(sql, params)
+        .then(result => {
+          client.release();
+          const response = {
+            count: result.rowCount,
+            orders: result.rows.map(order => {
+              return {
+                result: "ok",
+                order: {
+                  OrderId: order.OrderId,
+                  OrderNo: order.OrderNo,
+                  TotalPrice: order.TotalPrice,
+                  OrderItem: order.OrderItem,
+                  Quantity: order.Quantity,
+                  Closed: order.Closed,
+                  Finished: order.Finished,
+                  Note: order.Note,
+                  TableNum: order.TableNum,
+                  Date: order.Date
+                }
+              };
+            })
+          };
+          res.status(200).json(response);
+        })
+        .catch(err => {
+          client.release();
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};

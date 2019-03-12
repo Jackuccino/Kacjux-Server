@@ -30,4 +30,7 @@ router.delete("/delete-order/:orderId", OrdersController.orders_delete);
 // Handle a DELETE request which will delete the specific items in specific order
 router.delete("/remove-item/:orderId", OrdersController.orders_delete_item);
 
+// Handle a GET request which will return all the existing orders with specific table number
+router.get("/search-table-order/:tableNo", OrdersController.orders_get_table);
+
 module.exports = router;

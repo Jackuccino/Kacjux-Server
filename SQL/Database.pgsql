@@ -139,6 +139,13 @@ AS $$
 DELETE FROM "Kacjux"."Orders" WHERE "OrderNo" = id and "OrderItem" = itemId;
 $$;
 --------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION "Kacjux"."Get_Table_Orders"(tableNum INTEGER)
+RETURNS SETOF "Kacjux"."Orders"
+LANGUAGE SQL
+AS $$
+SELECT * FROM "Kacjux"."Orders" WHERE "TableNum" = tableNum;
+$$;
+--------------------------------------------------------------------
 
 ------ Drop Order Procedures ------
 DROP FUNCTION "Kacjux"."Get_All_Orders";
@@ -149,11 +156,15 @@ DROP FUNCTION "Kacjux"."Get_Order";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Close_Order";
 --------------------------------------------------------------------
+DROP PROCEDURE "Kacjux"."Finish_Order";
+--------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Reduce_Quantity";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Delete_Order";
 --------------------------------------------------------------------
 DROP PROCEDURE "Kacjux"."Delete_Items_In_Order";
+--------------------------------------------------------------------
+DROP FUNCTION "Kacjux"."Get_Table_Orders";
 --------------------------------------------------------------------
 
 ------ REST Query for Items ------
