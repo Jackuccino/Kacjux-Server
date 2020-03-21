@@ -132,7 +132,7 @@ exports.items_update = (req, res, next) => {
   pool
     .connect()
     .then(client => {
-      const sql = 'CALL "Kacjux"."Update_Item"($1, $2, $3, $4, $5. $6);';
+      const sql = 'CALL "Kacjux"."Update_Item"($1, $2, $3, $4, $5, $6);';
       const params = [
         req.body.Key,
         req.body.Description,
